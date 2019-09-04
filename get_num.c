@@ -62,3 +62,26 @@ static long		getNum(const char *fname, const char *arg, int flags, const char *n
 
     return res;
 }
+
+/* Convert a numeric command-line argument string to a long integer. See the
+   comments for getNum() for a description of the arguments to this function. */
+
+long	getLong(const char *arg, int flags, const char *name)
+{
+    return getNum("getLong", arg, flags, name);
+}
+
+/* Convert a numeric command-line argument string to an integer. See the
+   comments for getNum() for a description of the arguments to this function. */
+
+int		getInt(const char *arg, int flags, const char *name)
+{
+    long res;
+
+    res = getNum("getInt", arg, flags, name);
+
+    if (res > INT_MAX || res < INT_MIN)
+        gnFail("getInt", "integer out of range", arg, name);
+
+    return (int) res;
+}
