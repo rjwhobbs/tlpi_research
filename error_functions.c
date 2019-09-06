@@ -3,7 +3,7 @@
 #include "tlpi_hdr.h"
 #include "ename.c.inc"          /* Defines ename and MAX_ENAME */
 
-#define STR_SIZE 500
+#define BUF_SIZE 500
 
 #ifdef __GNUC__                 /* Prevent 'gcc -Wall' complaining  */
 __attribute__ ((__noreturn__))  /* if we call this function as last */
@@ -28,22 +28,22 @@ static void		terminate(Boolean useExit3)
 static void		outputError(Boolean useErr, int err, Boolean flushstdout, 
 							const char *format, va_list ap)
 {
-	char buf[STR_SIZE];
-	char userMsg[STR_SIZE]; 
-	char errText[STR_SIZE];
+	char buf[BUF_SIZE];
+	char userMsg[BUF_SIZE]; 
+	char errText[BUF_SIZE];
 
-	vsnprintf(userMsg, STR_SIZE, format, ap);
+	vsnprintf(userMsg, BUF_SIZE, format, ap);
 	if (useErr)
-		snprintf(errText, STR_SIZE, "[%s %s]",
+		snprintf(errText, BUF_SIZE, "[%s %s]",
 				(err > 0 && err <= MAX_ENAME) ? 
 				ename[err] : "?UNKNOWN", strerror(err));
 
 	else
-        snprintf(errText, STR_SIZE, ":");
+        snprintf(errText, BUF_SIZE, ":");
 
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wformat-truncation"
-    	snprintf(buf, STR_SIZE, "ERROR%s %s\n", errText, userMsg);
+    	snprintf(buf, BUF_SIZE, "ERROR%s %s\n", errText, userMsg);
 	#pragma GCC diagnostic pop
 
     if (flushstdout)
