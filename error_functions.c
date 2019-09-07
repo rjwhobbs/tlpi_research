@@ -2,12 +2,14 @@
 #include "error_functions.h"
 #include "tlpi_hdr.h"
 #include "ename.c.inc"          /* Defines ename and MAX_ENAME */
+#include "../libft/libft.h"
 
 #define BUF_SIZE 500
 
 #ifdef __GNUC__                 /* Prevent 'gcc -Wall' complaining  */
 __attribute__ ((__noreturn__))  /* if we call this function as last */
 #endif
+
 static void		terminate(Boolean useExit3)
 {
 	char *s;
@@ -34,15 +36,17 @@ static void		outputError(Boolean useErr, int err, Boolean flushstdout,
 
 	vsnprintf(userMsg, BUF_SIZE, format, ap);
 	if (useErr)
+	{
 		snprintf(errText, BUF_SIZE, "[%s %s]",
 				(err > 0 && err <= MAX_ENAME) ? 
 				ename[err] : "?UNKNOWN", strerror(err));
-
+	}
 	else
         snprintf(errText, BUF_SIZE, ":");
 
 	#pragma GCC diagnostic push
-	#pragma GCC diagnostic ignored "-Wformat-truncation"
+	//#pragma GCC diagnostic ignored "-Wformat-truncation"
+	/* This pragma won't work on mac OS, needs research */
     	snprintf(buf, BUF_SIZE, "ERROR%s %s\n", errText, userMsg);
 	#pragma GCC diagnostic pop
 
@@ -66,6 +70,19 @@ void	errMsg(const char *format, ...)
     va_end(argList);
 
     errno = savedErrno;
+}
+/* Display error message including 'errno' diagnostic, and
+   terminate the process */
+
+void	errExit(const char *format, ...)
+{
+    va_list argList;
+
+    va_start(argList, format);
+    outputError(TRUE, errno, TRUE, format, argList);
+    va_end(argList);
+
+    terminate(TRUE);
 }
 
 /* Display error message including 'errno' diagnostic, and

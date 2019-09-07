@@ -2,14 +2,23 @@
 #include "tlpi_hdr.h"
 #include <fcntl.h>
 
-int		main(void)
+#ifndef BUF_SIZE 			/* Allow "cc -D" to override definition */
+# define BUF_SIZE 1024
+#endif
+
+int		main(int ac, char *av[])
 {
-	int i;
+	int 		inputFd;
+	int			outputFd;
+	int			openFlags;
+	mode_t 		filePerms;
+	ssize_t		numRead;
+	char 		buf[BUF_SIZE];
 
-	i = 1 | 2 | 4;
-
-	printf("%d\n", i);
-	// ft_putnbr(i);
-	// ft_nl();
+	if (ac != 3 || ft_strcmp(av[1], "--help") == 0)
+		usageErr("%s old-file new-file\n", av[0]);
+	inputFd = open(av[1], O_RDONLY);
+	if (inputFd == -1)
+		errExit("opening file %s", av[1]);
 	return (0);
 }
