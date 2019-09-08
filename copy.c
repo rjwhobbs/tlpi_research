@@ -17,8 +17,30 @@ int		main(int ac, char *av[])
 
 	if (ac != 3 || ft_strcmp(av[1], "--help") == 0)
 		usageErr("%s old-file new-file\n", av[0]);
+
 	inputFd = open(av[1], O_RDONLY);
 	if (inputFd == -1)
 		errExit("opening file %s", av[1]);
-	return (0);
+
+	openFlags = O_CREAT | O_RDONLY | O_TRUNC;
+	filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
+	outputFd = open(av[2], openFlags, filePerms); //perms 0666
+	if (outputFd == -1)
+		errExit("opening file %s", av[2]);
+
+	/* Transfer data until we encounter end of input or an error */
+
+	while ((numRead = read(inputFd, buf, BUF_SIZE)) > 0)
+		if ((write(outputFd, buf, BUF_SIZE) != numRead))
+			fatal("couldn't write whole buffer");
+	
+	if (numRead == -1)
+		errExit("read");
+	
+	if (close(inputFd) == -1)
+		errExit("close input");
+	if (close(outputFd) == -1)
+		errExit("close output");
+
+	exit(EXIT_SUCCESS);
 }
