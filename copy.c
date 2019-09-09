@@ -22,7 +22,7 @@ int		main(int ac, char *av[])
 	if (inputFd == -1)
 		errExit("opening file %s", av[1]);
 
-	openFlags = O_CREAT | O_RDONLY | O_TRUNC;
+	openFlags = O_CREAT | O_WRONLY | O_TRUNC;
 	filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
 	outputFd = open(av[2], openFlags, filePerms); //perms 0666
 	if (outputFd == -1)
@@ -31,7 +31,7 @@ int		main(int ac, char *av[])
 	/* Transfer data until we encounter end of input or an error */
 
 	while ((numRead = read(inputFd, buf, BUF_SIZE)) > 0)
-		if ((write(outputFd, buf, BUF_SIZE) != numRead))
+		if ((write(outputFd, buf, numRead) != numRead))
 			fatal("couldn't write whole buffer");
 	
 	if (numRead == -1)
