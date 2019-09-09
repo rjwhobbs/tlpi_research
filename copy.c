@@ -23,9 +23,10 @@ int		main(int ac, char *av[])
 		errExit("opening file %s", av[1]);
 
 	openFlags = O_CREAT | O_WRONLY | O_TRUNC;
-	filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
-	outputFd = open(av[2], openFlags, filePerms); //perms 0666
-	if (outputFd == -1)
+	filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | 
+				S_IROTH | S_IWOTH;
+	outputFd = open(av[2], openFlags, filePerms); //perms 0666? why are the perms only rw-r--r--?
+	if (outputFd == -1)                           //Maybe on this system O_WRONLY works differently?  
 		errExit("opening file %s", av[2]);
 
 	/* Transfer data until we encounter end of input or an error */
