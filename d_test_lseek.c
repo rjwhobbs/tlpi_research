@@ -23,12 +23,16 @@ int main(int ac, char *av[])
 	}
 	ft_putnbr(seek = lseek(fd, 0, SEEK_END));
 	ft_nl();
-	bytes_written = write(fd, "Hello world", strlen("Hello world"));
+	bytes_written = write(fd, "Hello world", strlen("Hello world")); // But why does this write 11mbs worth of HW's?
 	ft_putnbr(seek = lseek(fd, 0, SEEK_SET));
 	if (get_next_line(fd, &gnl_file)) //Does the read in gnl get offset?
 	{
-		ft_putendl(gnl_file);
-		ft_strdel(&gnl_file);
+		ft_putendl(gnl_file); // So the issue seems to be that when writing past the end of the file
+		ft_strdel(&gnl_file); // that a nul byte gets inserted which seems to break gnl
+		// This will require further investigation but it seems the problem is
+		// that the offset for read starts at a nul byte and this breaks GNL, temp check just 
+		// returns 1 the whole time which creates the infinite loop, I'll need to
+		// investigate what happens with memory allocation in buff_rw.
 	}
 	// i = 0;
 	// while (i < 10)
