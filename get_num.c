@@ -46,7 +46,7 @@ static long		getNum(const char *fname, const char *arg, int flags, const char *n
     base = (flags & GN_ANY_BASE) ? 0 : (flags & GN_BASE_8) ? 8 :
                         (flags & GN_BASE_16) ? 16 : 10;
 
-    errno = 0;
+    errno = 0;  // I assume this is a safety measure to protect against any previous setting of errno that was not set back to 0.
     res = strtol(arg, &endptr, base);
     if (errno != 0)
         gnFail(fname, "strtol() failed", arg, name);
