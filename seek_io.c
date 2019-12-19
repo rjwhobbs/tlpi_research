@@ -46,7 +46,7 @@ main	(int ac, char *av[])
 					if (av[ap][0] == 'r')
 						printf("%c", isprint((unsigned char)buf[j]) ? buf[j]: '?');
 					else
-						printf("%02x", (unsigned int)buf[j]);
+						printf("%02x ", (unsigned int)buf[j]);
 				}
 				printf("\n");
 			}
