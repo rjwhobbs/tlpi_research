@@ -51,7 +51,7 @@ main	(int ac, char *av[])
 				printf("\n");
 			}
 			free(buf);
-			break;
+			break; // This just breaks out of the switch case not out of the for loop.
 		case 'w': // Write string at current offset.
 			numWritten = write(fd, &av[ap][1], strlen(&av[ap][1]));
 			if (numWritten == -1)
@@ -62,11 +62,12 @@ main	(int ac, char *av[])
 			offset = getLong(&av[ap][1], GN_ANY_BASE, av[ap]);
 			if (lseek(fd, offset, SEEK_SET) == -1)
 				errExit("lseek");
-
-		default:
+			printf("%s: seek succeeded\n", av[ap]);
 			break;
+		default:
+			cmdLineErr("Argument must start with [rRws]: %s\n", av[ap]);
 		}
 		//missing code
 	}
-
+	exit(EXIT_SUCCESS);
 }
