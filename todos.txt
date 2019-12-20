@@ -1,1 +1,3 @@
-1. Make "tlpi" lib, perhaps with a make file too.
+1. Make "tlpi" lib, perhaps with a make file too. Done
+2. Clean up root, put program sources and tests in seperate dirs.
+3. Idea, make a tool that does the compiling for you, eg searches for *.a's and compiles with them.
