@@ -19,7 +19,7 @@ main	(int ac, char *av[])
 		usageErr("%s file {r<length>|R<length>|w<string>|s<offset>}...\n", av[0]);
 	fd = open(av[1], O_RDWR | O_CREAT,
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP |
-					S_IROTH | S_IWOTH);
+					S_IROTH | S_IWOTH); //Not sure why this only gives w perms to usr
 	if (fd == -1)
 		errExit("open");
 	
