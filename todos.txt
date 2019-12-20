@@ -3,3 +3,4 @@
 3. Idea, make a tool that does the compiling for you, eg searches for *.a's and compiles with them.
 4. Clone 'tee' tool. ref ex 4.10
 5. Clone 'cp'. ref ex 4.10
+6. Add -O flag to compilation.
