@@ -27,5 +27,6 @@ int		main(int argc, char *argv[])
 	while ((bytes_read = read(src_fd, buf, 1)))
 		bytes_written = write(dst_fd, buf, 1);
 
+	// This closes open fd's, note this prog has no error handling
 	exit(EXIT_SUCCESS);
 }
