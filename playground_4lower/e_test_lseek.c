@@ -1,4 +1,4 @@
-#include "./libft/libft.h"
+#include "../libft/libft.h"
 #include "tlpi_hdr.h"
 #include <fcntl.h>
 

@@ -1,6 +1,7 @@
+//4.10
 #include <fcntl.h>
-#include "./libft/libft.h"
-#include "./libtlpi/tlpi_hdr.h"
+#include "../libft/libft.h"
+#include "../libtlpi/tlpi_hdr.h"
 
 //A Basic implementation of 'cp'.
 //TODO Error handling and optimization

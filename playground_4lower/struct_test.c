@@ -1,4 +1,4 @@
-#include "./libtlpi/tlpi_hdr.h"
+#include "../libtlpi/tlpi_hdr.h"
 
 struct X
 {
