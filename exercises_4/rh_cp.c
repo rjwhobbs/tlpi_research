@@ -4,7 +4,7 @@
 #include "../libtlpi/tlpi_hdr.h"
 
 //A Basic implementation of 'cp'.
-//TODO Error handling and optimization
+//Todo: Error handling and optimization DONE see copy.c in this dir
 
 int		main(int argc, char *argv[])
 {
