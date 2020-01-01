@@ -4,3 +4,4 @@
 4. Clone 'tee' tool. ref ex 4.10. 
 5. Clone 'cp'. ref ex 4.10. DONE see copy.c in this repo
 6. Add -O flag to compilation.
+7. Check if cp (copy.c) can copy files with file holes.
