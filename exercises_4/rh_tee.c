@@ -6,24 +6,27 @@
 int		main(int argc, char *argv[])
 {
 	int opt;
-	int openFlags;
-	int filePerms;
+	int open_flags;
+	int file_perms;
 	int fd;
+	int opt_check;
 
-	openFlags = O_CREAT | O_WRONLY | O_TRUNC ;
-	filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | 
+	opt_check = 0;
+	open_flags = O_CREAT | O_WRONLY | O_TRUNC ;
+	file_perms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | 
 				S_IROTH | S_IWOTH;
 	
 	while ((opt = getopt(argc , argv, "a")) != -1)
 	{
-		// Needs error handling
-		// I don't like how this loops with a string with multiple flags
-		// perhaps I should make a toggle in here
-		openFlags = openFlags ^ O_TRUNC; 
-		//printf("%d\n", openFlags);
+		if (opt == 'a')
+			opt_check = 1;
+		else 
+			opt_check = 0;
 	}
-	ft_putendl("Do the thing");
-	fd = open(argv[optind], openFlags, filePerms);
+	
+	if (opt_check)
+		open_flags = open_flags ^ O_TRUNC; 
+	fd = open(argv[optind], open_flags, file_perms);
 
 	close(fd); 
 	exit(EXIT_SUCCESS);
