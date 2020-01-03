@@ -20,9 +20,10 @@ int		main(int argc, char *argv[])
 		// I don't like how this loops with a string with multiple flags
 		// perhaps I should make a toggle in here
 		openFlags = openFlags ^ O_TRUNC; 
+		//printf("%d\n", openFlags);
 	}
-
-	fd = open(argv[1], openFlags, filePerms);
+	ft_putendl("Do the thing");
+	fd = open(argv[optind], openFlags, filePerms);
 
 	close(fd); 
 	exit(EXIT_SUCCESS);
