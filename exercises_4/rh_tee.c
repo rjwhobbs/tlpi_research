@@ -12,6 +12,7 @@ int		main(int argc, char *argv[])
 	struct rlimit lim;
 	unsigned int i;
 	unsigned int fd_buf;
+	char *line;
 
 	i = 0;
 	opt_check = 0;
@@ -40,9 +41,7 @@ int		main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	ft_putnbr(fd_buf);
-	ft_nl();
-	unsigned int fd[fd_buf];
+	unsigned int fd[fd_buf]; // What is the effect of declaring vars here instead of at the begining
 
 	if (opt_check)
 		open_flags = open_flags ^ O_TRUNC; 
@@ -53,9 +52,18 @@ int		main(int argc, char *argv[])
 		i++;
 	}
 
-	i = 0;
-	while (i < fd_buf)
-		close(fd[i++]);
+	// How can I close fds if the program only closes with sigint?
+	while (get_next_line(STDIN_FILENO, &line) != -1)
+	{
+		i = 0;
+		while (i < fd_buf)
+		{
+			ft_putendl_fd(line, fd[i]);
+			i++;
+		}
+		ft_putendl_fd(line, STDOUT_FILENO); //prints with a newline char
+		free(line);
+	}
 		 
-	exit(EXIT_SUCCESS);
+	exit(EXIT_FAILURE);
 }
