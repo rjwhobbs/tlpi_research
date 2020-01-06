@@ -58,6 +58,7 @@ int		main(int argc, char *argv[])
 		i = 0;
 		while (i < fd_buf)
 		{
+			lseek(fd[i], 0, SEEK_END);
 			ft_putendl_fd(line, fd[i]);
 			i++;
 		}
