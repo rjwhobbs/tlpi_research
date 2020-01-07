@@ -14,6 +14,7 @@ int		main(int argc, char *argv[])
 	unsigned int fd_buf;
 	char *line;
 
+	line = NULL;
 	i = 0;
 	opt_check = 0;
 	open_flags = O_CREAT | O_WRONLY | O_TRUNC ;
@@ -63,7 +64,8 @@ int		main(int argc, char *argv[])
 			i++;
 		}
 		ft_putendl_fd(line, STDOUT_FILENO); //prints with a newline char
-		free(line);
+		if (line)
+			ft_strdel(&line); // free and point to NULL
 	}
 		 
 	exit(EXIT_FAILURE);
