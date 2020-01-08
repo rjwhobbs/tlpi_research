@@ -13,6 +13,7 @@ int		main(int argc, char *argv[])
 	unsigned int i;
 	unsigned int fd_buf;
 	char *line;
+	int read_check;
 
 	line = NULL;
 	i = 0;
@@ -54,8 +55,10 @@ int		main(int argc, char *argv[])
 	}
 
 	// How can I close fds if the program only closes with sigint?
-	while (get_next_line(STDIN_FILENO, &line) != -1)
+	while ((read_check = get_next_line(STDIN_FILENO, &line)) != -1)
 	{
+		if (!read_check)
+			exit(EXIT_SUCCESS);
 		i = 0;
 		while (i < fd_buf)
 		{
