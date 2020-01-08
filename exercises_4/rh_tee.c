@@ -21,18 +21,24 @@ int		main(int argc, char *argv[])
 	open_flags = O_CREAT | O_WRONLY | O_TRUNC ;
 	file_perms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | 
 				S_IROTH | S_IWOTH;
-	
-	while ((opt = getopt(argc , argv, "a")) != -1)
+
+	while ((opt = getopt(argc , argv, ":a")) != -1)
 	{
 		if (opt == 'a')
 			opt_check = 1;
-		else 
-			opt_check = 0;
+		else if (opt == '?')
+		{
+			dprintf(STDERR_FILENO, "Usage %s [-a] [file]\n", argv[0]);
+			exit(EXIT_FAILURE);
+		}
 	}
+
+	if (opt_check)
+		open_flags = open_flags ^ O_TRUNC; 
 	
 	if (getrlimit(RLIMIT_NOFILE, &lim) == -1)
 	{
-		ft_putendl("getrlimit() err");
+		perror("getrlimit() error");
 		exit(EXIT_FAILURE);
 	}	
 
@@ -45,16 +51,12 @@ int		main(int argc, char *argv[])
 
 	unsigned int fd[fd_buf]; // What is the effect of declaring vars here instead of at the begining
 
-	if (opt_check)
-		open_flags = open_flags ^ O_TRUNC; 
-	
 	while (argv[optind + i])
 	{
 		fd[i] = open(argv[optind + i], open_flags, file_perms);
 		i++;
 	}
 
-	// How can I close fds if the program only closes with sigint?
 	while ((read_check = get_next_line(STDIN_FILENO, &line)) != -1)
 	{
 		if (!read_check)
@@ -70,6 +72,6 @@ int		main(int argc, char *argv[])
 		if (line)
 			ft_strdel(&line); // free and point to NULL
 	}
-		 
+	
 	exit(EXIT_FAILURE);
 }
