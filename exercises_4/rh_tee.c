@@ -73,6 +73,7 @@ int		main(int argc, char *argv[])
 		if (line)
 			ft_strdel(&line); // free and point to NULL
 	}
+	
 	dprintf(STDERR_FILENO, "Error reading from stdin.");
 	exit(EXIT_FAILURE);
 }
