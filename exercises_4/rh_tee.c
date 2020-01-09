@@ -20,13 +20,13 @@ int		main(int argc, char *argv[])
 	opt_check = 0;
 	open_flags = O_CREAT | O_WRONLY | O_TRUNC ;
 	file_perms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | 
-				S_IROTH | S_IWOTH;
+					S_IROTH | S_IWOTH;
 
 	while ((opt = getopt(argc , argv, ":a")) != -1)
 	{
 		if (opt == 'a')
 			opt_check = 1;
-		else if (opt == '?')
+		if (opt == '?')
 		{
 			dprintf(STDERR_FILENO, "Usage %s [-a] [file]\n", argv[0]);
 			exit(EXIT_FAILURE);
@@ -43,13 +43,14 @@ int		main(int argc, char *argv[])
 	}	
 
 	fd_buf = argc - optind;
+	// Args amount set to soft limit on open fds
 	if (fd_buf > lim.rlim_cur)
 	{
-		ft_putendl("Too many args");
+		dprintf(STDERR_FILENO, "Please provide less than %d arguments.", lim.rlim_cur);
 		exit(EXIT_FAILURE);
 	}
 
-	unsigned int fd[fd_buf]; // What is the effect of declaring vars here instead of at the begining
+	unsigned int fd[fd_buf]; // What is the effect of declaring vars here instead of at the begining of the program?
 
 	while (argv[optind + i])
 	{
@@ -65,13 +66,13 @@ int		main(int argc, char *argv[])
 		while (i < fd_buf)
 		{
 			lseek(fd[i], 0, SEEK_END);
-			ft_putendl_fd(line, fd[i]);
+			ft_putendl_fd(line, fd[i]); //prints with a newline char
 			i++;
 		}
 		ft_putendl_fd(line, STDOUT_FILENO); //prints with a newline char
 		if (line)
 			ft_strdel(&line); // free and point to NULL
 	}
-	
+	dprintf(STDERR_FILENO, "Error reading from stdin.");
 	exit(EXIT_FAILURE);
 }
