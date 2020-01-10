@@ -1,24 +1,25 @@
-#include "../libtlpi/tlpi_hdr.h"
-#include "../libft/libft.h"
 #include <ctype.h>
 #include <fcntl.h>
+/* 	
+*	include project local headers after system headers. 
+*	This way you will know when your local headers are overwriting 
+*	something from system headers/libraries:
+*/
+#include "../libtlpi/tlpi_hdr.h"
+#include "../libft/libft.h"
 
 int		main(int argc, char *argv[])
 {
 	int opt;
-	int open_flags;
-	int file_perms;
-	int opt_check;
 	struct rlimit lim;
 	unsigned int i;
 	unsigned int fd_buf;
-	char *line;
 	int read_check;
 
-	line = NULL;
-	opt_check = 0;
-	open_flags = O_CREAT | O_WRONLY | O_APPEND |O_TRUNC ;
-	file_perms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | 
+	int opt_check = 0;
+	char *line = NULL;
+	int open_flags = O_CREAT | O_WRONLY | O_APPEND |O_TRUNC ;
+	int file_perms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | 
 					S_IROTH | S_IWOTH;
 
 	if(argc == 1)
@@ -26,12 +27,14 @@ int		main(int argc, char *argv[])
 
 	while ((opt = getopt(argc , argv, ":a")) != -1)
 	{
-		if (opt == 'a')
-			opt_check = 1;
-		if (opt == '?')
+		switch (opt)
 		{
-			dprintf(STDERR_FILENO, "Usage %s [-a] [file]\n", argv[0]);
-			exit(EXIT_FAILURE);
+			case 'a':
+				opt_check = 1;
+				break;
+			default:
+				dprintf(STDERR_FILENO, "Usage %s [-a] [file]\n", argv[0]);
+				return(EXIT_FAILURE);
 		}
 	}
 
