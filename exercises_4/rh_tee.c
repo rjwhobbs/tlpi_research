@@ -16,11 +16,13 @@ int		main(int argc, char *argv[])
 	int read_check;
 
 	line = NULL;
-	i = 0;
 	opt_check = 0;
 	open_flags = O_CREAT | O_WRONLY | O_APPEND |O_TRUNC ;
 	file_perms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | 
 					S_IROTH | S_IWOTH;
+
+	if(argc == 1)
+		return (EXIT_FAILURE);
 
 	while ((opt = getopt(argc , argv, ":a")) != -1)
 	{
@@ -51,12 +53,10 @@ int		main(int argc, char *argv[])
 	}
 
 	unsigned int fd[fd_buf]; // What is the effect of declaring vars here instead of at the begining of the program?
+	i = 0;
 
-	while (argv[optind + i])
-	{
+	for ( ; i < (unsigned int)argc; i++)
 		fd[i] = open(argv[optind + i], open_flags, file_perms);
-		i++;
-	}
 
 	while ((read_check = get_next_line(STDIN_FILENO, &line)) != -1)
 	{
