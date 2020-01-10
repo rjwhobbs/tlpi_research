@@ -18,7 +18,7 @@ int		main(int argc, char *argv[])
 	line = NULL;
 	i = 0;
 	opt_check = 0;
-	open_flags = O_CREAT | O_WRONLY | O_TRUNC ;
+	open_flags = O_CREAT | O_WRONLY | O_APPEND |O_TRUNC ;
 	file_perms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | 
 					S_IROTH | S_IWOTH;
 
@@ -46,7 +46,7 @@ int		main(int argc, char *argv[])
 	// Args amount set to soft limit on open fds
 	if (fd_buf > lim.rlim_cur)
 	{
-		dprintf(STDERR_FILENO, "Please provide less than %d arguments.", lim.rlim_cur);
+		dprintf(STDERR_FILENO, "Please provide less than %lld arguments.", lim.rlim_cur);
 		exit(EXIT_FAILURE);
 	}
 
@@ -65,7 +65,6 @@ int		main(int argc, char *argv[])
 		i = 0;
 		while (i < fd_buf)
 		{
-			lseek(fd[i], 0, SEEK_END);
 			ft_putendl_fd(line, fd[i]); //prints with a newline char
 			i++;
 		}
