@@ -1,7 +1,7 @@
 1. Make "tlpi" lib, perhaps with a make file too. DONE
 2. Clean up root, put program sources and tests in seperate dirs. DONE
 3. Idea, make a tool that does the compiling for you, eg searches for *.a's and compiles with them.
-4. Clone 'tee' tool. ref ex 4.10. 
+4. Clone 'tee' tool. ref ex 4.10. DONE
 5. Clone 'cp'. ref ex 4.10. DONE see copy.c in this repo
 6. Add -O flag to compilation.
-7. Check if cp (copy.c) can copy files with file holes.
+7. Check if cp (copy.c) can copy files with file holes. DONE
