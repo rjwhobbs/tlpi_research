@@ -89,5 +89,7 @@ int		main(int argc, char *argv[])
 	}
 	
 	dprintf(STDERR_FILENO, "Error reading from stdin.");
+	for (i = 0; i < num_file; i++)
+		close (fd[i]);
 	return (EXIT_FAILURE);
 }
