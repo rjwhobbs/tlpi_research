@@ -18,24 +18,24 @@ int		main(int argc, char *argv[]) {
 	int fd = open(argv[1], open_flags, file_perms);
 
 	iov[0].iov_base = str_one;
-	iov[0].iov_len = 50;
+	iov[0].iov_len = 5;
 
 	iov[1].iov_base = str_two;
-	iov[1].iov_len = 50;
+	iov[1].iov_len = 5;
 
 	iov[2].iov_base = str_three;
-	iov[2].iov_len = 50;
+	iov[2].iov_len = 5;
 
-	num_read = readv(fd, iov, 50);
+	num_read = readv(fd, iov, 3);
 	if (num_read == -1) {
 		close(fd);
 		errExit("readv");
 	}
 
 	for (i = 0; i < 3; i++) {
-		printf("%d:\n%s\n", iov[i].iov_base);
+		printf("%d:\n%s\n", i, iov[i].iov_base);
 	}
-	
+
 	if (close(fd) == -1) {
 		errExit("close");
 	}
