@@ -14,7 +14,7 @@
 
 void	ft_lstdel(t_list **alsti, void (*del)(void *, size_t))
 {
-	t_list *temp;
+	t_list *temp __attribute__((unused));
 
 	if (alsti)
 	{
