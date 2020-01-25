@@ -14,7 +14,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
-# define GNL_BUFF_SIZE 1
+# define GNL_BUFF_SIZE 64
 
 typedef struct		s_list
 {
