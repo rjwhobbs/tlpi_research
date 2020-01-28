@@ -7,17 +7,17 @@ void	ft_del(void *content, size_t size) {
 
 void	ft_lstdel2(t_list **alsti, void (*del)(void *, size_t))
 {
-	t_list **temp;
+	t_list *temp;
 
 	if (alsti && *alsti)
 	{
-		while ((*alsti)->next)
+		while (*alsti)
 		{
-			temp = alsti;
+			temp = *alsti;
 			*alsti = (*alsti)->next;
-			del((*temp)->content, (*temp)->content_size);
-			free(*temp);
-			*temp = NULL;
+			del(temp->content, temp->content_size);
+			free(temp);
+			temp = NULL;
 		}
 	}
 }
@@ -34,10 +34,12 @@ int	main(int ac, char **av) {
 
 	start = NULL;
 
-	ft_putendl(n1->content);
+	// ft_putendl(n1->content);
 	n1->next = n2;
 	ft_lstdel2(&n1, ft_del);
-	n3 = ft_lstnew("BISCUITS", sizeof("BISCUITS"));
-	ft_putendl(n1->content);
+	// n3 = ft_lstnew("BISCUITS", sizeof("BISCUITS"));
+	if (n1->content == NULL) {
+		ft_putendl("Here");
+	}
 	return (0);
 }
