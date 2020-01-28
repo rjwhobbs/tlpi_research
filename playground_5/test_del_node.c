@@ -1,11 +1,11 @@
 #include "../libft/libft.h"
 
 void	ft_del(void *content, size_t size) {
-	(void)size;
+	size = 0;
 	free(content);
 }
 
-void	ft_lstdel2(t_list **alsti, void (*del)(void *, size_t))
+void	ft_lstdel_v2(t_list **alsti, void (*del)(void *, size_t))
 {
 	t_list *temp;
 
