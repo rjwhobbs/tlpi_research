@@ -4,6 +4,12 @@
 #include <ctype.h>
 #include "../libtlpi/tlpi_hdr.h"
 
+// Usage eg
+/*
+./a.out test.txt wXXXXX s6
+writes XXXXX from offset 6 to test.txt
+ */
+
 int
 main	(int ac, char *av[])
 {
